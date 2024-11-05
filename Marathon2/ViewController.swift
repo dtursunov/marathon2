@@ -73,6 +73,39 @@ class MyButton: UIButton {
         config.cornerStyle = .medium
         config.contentInsets = Constants.contentInset
         config.imagePadding = Constants.imagePadding
+        config.background.backgroundColorTransformer = .init { old in
+            var new = old
+            switch self.tintAdjustmentMode {
+            case .dimmed: // когда презентован
+                new = .systemGray2
+            default:
+                new = .systemBlue
+            }
+            return new
+        }
+        
+        config.titleTextAttributesTransformer = .init { old in
+            var new = old
+            switch self.tintAdjustmentMode {
+            case .dimmed: // когда презентован
+                new.foregroundColor = .systemGray3
+            default:
+                new.foregroundColor = .white
+            }
+            return new
+        }
+        
+        config.imageColorTransformer = .init { old in
+            var new = old
+            switch self.tintAdjustmentMode {
+            case .dimmed: // когда презентован
+                new = .systemGray3
+            default:
+                new = .white
+            }
+            return new
+        }
+        
         config.title = title
         config.image = image
         configuration = config
